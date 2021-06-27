@@ -1,0 +1,7 @@
+datasets == 1.2.1
+sentencepiece != 0.1.92
+protobuf
+transformers == 4.3.2
+torch == 1.7.1
+scipy
+sklearn

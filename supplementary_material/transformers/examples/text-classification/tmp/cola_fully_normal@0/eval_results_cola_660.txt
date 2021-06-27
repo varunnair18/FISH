@@ -1,0 +1,5 @@
+epoch = 1.23
+eval_loss = 0.5073251724243164
+eval_matthews_correlation = 0.5886507217040784
+eval_runtime = 5.0737
+eval_samples_per_second = 205.569

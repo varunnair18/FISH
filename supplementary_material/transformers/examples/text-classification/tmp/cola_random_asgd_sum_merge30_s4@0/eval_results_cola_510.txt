@@ -1,0 +1,4 @@
+eval_loss = 0.5194010138511658
+eval_matthews_correlation = 0.308426161755472
+eval_runtime = 3.8328
+eval_samples_per_second = 272.124
