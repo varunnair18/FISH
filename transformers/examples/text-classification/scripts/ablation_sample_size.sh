@@ -1,7 +1,9 @@
 datasets=$1
 seed=$2
 
-source $(pwd)/scripts/lib.sh
+DIR=$(pwd)/transformers/examples/text-classification
+
+source ${DIR}/scripts/lib.sh
 
 sample_sizes=(32 256 1024 16384)
 method="label-square"
@@ -17,7 +19,7 @@ for dataset in ${datasets[@]}; do
     for sample_size in ${sample_sizes[@]}; do
         file_name="bert-large-"$dataset"-ablation-sample-size-"$sample_size"-"$learning_rate"-"$batch_size"-"$seed"-results.txt"
         experiment_name="ablation-sample-size, ${dataset}, sample-size=${sample_size}, lr=${learning_rate}, batch=${batch_size}, seed=$seed"
-        python run_glue_sparse_update.py \
+        python ${DIR}/run_glue_sparse_update.py \
             --model_name_or_path bert-large-cased-whole-word-masking \
             --task_name $dataset \
             --do_train \

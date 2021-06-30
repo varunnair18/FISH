@@ -2,7 +2,9 @@ datasets=$1
 seed=$2
 keep_ratio=$3
 
-source $(pwd)/scripts/lib.sh
+DIR=$(pwd)/transformers/examples/text-classification
+
+source ${DIR}/scripts/lib.sh
 
 mask_num_samples=$4
 method="label-square"
@@ -20,7 +22,7 @@ for dataset in ${datasets[@]}; do
     file_name="bert-large-"$dataset"-"$learning_rate"-"$batch_size"-"$seed"-"$keep_ratio"-sparse-results"
     experiment_name="sparse_experiment, ${dataset}, lr=${learning_rate}, batch=${batch_size}, seed=${seed}, ratio=${keep_ratio}"
 
-    python run_glue_sparse_update.py \
+    python ${DIR}/run_glue_sparse_update.py \
         --model_name_or_path bert-large-cased-whole-word-masking \
         --task_name $dataset \
         --do_train \

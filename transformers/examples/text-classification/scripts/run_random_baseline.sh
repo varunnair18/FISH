@@ -1,7 +1,9 @@
 datasets=$1
 seed=$2
 
-source $(pwd)/scripts/lib.sh
+DIR=$(pwd)/transformers/examples/text-classification
+
+source ${DIR}/scripts/lib.sh
 
 mkdir -p tsv
 
@@ -18,7 +20,7 @@ for dataset in ${datasets[@]}; do
 
     file_name="bert-large-"$dataset"-"$learning_rate"-"$batch_size"-"$seed"-random-results"
     experiment_name="random_baseline, ${dataset}, lr=${learning_rate}, batch=${batch_size}, seed=${seed}"
-    python run_glue_sparse_update.py \
+    python ${DIR}/run_glue_sparse_update.py \
         --model_name_or_path bert-large-cased-whole-word-masking \
         --task_name $dataset \
         --do_train \
