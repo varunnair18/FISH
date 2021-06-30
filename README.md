@@ -55,9 +55,9 @@ $ bash supplementary_material/cifar10-fast/scripts/distributed_training.sh
 
 ```
 ```
-Table 4 - Efficient Checkpointing
+# Table 4 - Efficient Checkpointing
 
-$ bash supplementary_material/cifar10-fast/scripts/small_smallcheckpoints.sh
+$ bash supplementary_material/cifar10-fast/scripts/small_checkpoints.sh
 ```
 
 ## Notes
