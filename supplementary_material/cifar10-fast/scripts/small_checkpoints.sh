@@ -2,6 +2,7 @@ num_samples=1024
 epochs=100
 lr=0.4
 
+# sparse update for the FISH mask
 for keep_ratio in 0.005 0.02 0.1
 do
     for lr in 0.4 0.2 0.08 0.04 0.02
@@ -15,6 +16,7 @@ do
     done
 done
 
+# sparse update for the FISH mask - fix mask for all time
 for keep_ratio in 0.005 0.02 0.1
 do
     for lr in 0.4 0.2 0.08 0.04 0.02
@@ -30,6 +32,7 @@ do
 done
 
 
+# sparse update for the random mask
 for keep_ratio in 0.005 0.02 0.1
 do
     for lr in 0.4 0.2 0.08 0.04 0.02
@@ -44,6 +47,8 @@ do
     done
 done
 
+
+# sparse update for the random mask - fix mask for all time
 for keep_ratio in 0.005 0.02 0.1
 do
     for lr in 0.4 0.2 0.08 0.04 0.02

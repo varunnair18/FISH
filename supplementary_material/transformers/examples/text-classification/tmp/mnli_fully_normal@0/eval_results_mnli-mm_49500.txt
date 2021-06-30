@@ -1,5 +1,0 @@
-epoch = 2.02
-eval_accuracy = 0.863100081366965
-eval_loss = 0.5376560688018799
-eval_runtime = 41.0149
-eval_samples_per_second = 239.718

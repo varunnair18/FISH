@@ -1,6 +1,0 @@
-eval_combined_score = 0.8483263660554599
-eval_loss = 1.5131309032440186
-eval_pearson = 0.8465176550761024
-eval_runtime = 7.2802
-eval_samples_per_second = 206.038
-eval_spearmanr = 0.8501350770348174

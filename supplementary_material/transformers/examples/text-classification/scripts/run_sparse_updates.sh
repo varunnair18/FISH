@@ -2,7 +2,7 @@ datasets=$1
 seed=$2
 keep_ratio=$3
 
-source $(pwd)/lib.sh
+source $(pwd)/scripts/lib.sh
 
 mask_num_samples=$4
 method="label-square"

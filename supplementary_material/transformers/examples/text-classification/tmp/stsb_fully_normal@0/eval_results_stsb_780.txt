@@ -1,7 +1,0 @@
-epoch = 2.17
-eval_combined_score = 0.9023356865832686
-eval_loss = 0.4155919551849365
-eval_pearson = 0.9029660897699048
-eval_runtime = 6.9894
-eval_samples_per_second = 214.611
-eval_spearmanr = 0.9017052833966323

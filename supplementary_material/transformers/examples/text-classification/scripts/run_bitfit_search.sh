@@ -1,7 +1,7 @@
 datasets=$1
 seed=$2
 
-source $(pwd)/lib.sh
+source $(pwd)/scripts/lib.sh
 
 # methods=("expect-square")
 method="bias"

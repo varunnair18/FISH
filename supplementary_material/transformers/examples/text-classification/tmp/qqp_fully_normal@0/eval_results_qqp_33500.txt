@@ -1,7 +1,0 @@
-epoch = 1.47
-eval_accuracy = 0.8925055651743755
-eval_combined_score = 0.8789313872095311
-eval_f1 = 0.8653572092446867
-eval_loss = 0.27404284477233887
-eval_runtime = 184.4883
-eval_samples_per_second = 219.147
