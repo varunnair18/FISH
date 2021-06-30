@@ -13,8 +13,7 @@ cd examples/text-classsification
 ### Table 1 - Parameter Efficient Transfer Learning on GLUE
 `bash scripts/run_table_1.sh`
 
-
-Note to replicate Diff Pruning experiments, following instructions in: https://github.com/dguo98/DiffPruning. 
+Note to replicate Diff Pruning experiments, following instructions [here](https://github.com/varunnair18/DiffPruning/tree/multi-gpus).
 
 ### Figure 2 - Mask Sparsity Ablation and Sample Ablation
 `bash scripts/run_figure_2.sh`

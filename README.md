@@ -7,7 +7,7 @@ This repo contains the code for Fisher Induced Sparse uncHanging (FISH) Mask tra
 ## Setup
 
 ```
-pip install supplementary_material/transformers/.
+pip install transformers/.
 pip install datasets torch==1.8.0 tqdm torchvision==0.9.0
 ```
 
@@ -15,7 +15,7 @@ pip install datasets torch==1.8.0 tqdm torchvision==0.9.0
 To run the FISH Mask on a GLUE dataset, code can be run with the following format:
 
 ```
-$ bash supplementary_material/transformers/examples/text-classification/scripts/run_sparse_updates.sh <dataset-name> <seed> <top_k_percentage> <num_samples_for_fisher>
+$ bash transformers/examples/text-classification/scripts/run_sparse_updates.sh <dataset-name> <seed> <top_k_percentage> <num_samples_for_fisher>
 ```
 
 An example command used to generate Table 1 in the paper is as follows, where all GLUE tasks are provided at a seed of 0 and a FISH mask sparsity of 0.5%.
@@ -36,28 +36,28 @@ Replicating each of the tables and figures present in the original paper can be 
 ```
 # Table 1 - Parameter Efficient Fine-Tuning on GLUE
 
-$ bash supplementary_material/transformers/examples/text-classification/scripts/run_table_1.sh
+$ bash transformers/examples/text-classification/scripts/run_table_1.sh
 ```
 ```
 # Figure 2 - Mask Sparsity Ablation and Sample Ablation
 
-$ bash supplementary_material/transformers/examples/text-classification/scripts/run_figure_2.sh
+$ bash transformers/examples/text-classification/scripts/run_figure_2.sh
 ```
 ```
 # Table 2 - Distributed Training on GLUE
 
-$ bash supplementary_material/transformers/examples/text-classification/scripts/run_table_2.sh
+$ bash transformers/examples/text-classification/scripts/run_table_2.sh
 ```
 ```
 # Table 3 - Distributed Training on CIFAR10
 
-$ bash supplementary_material/cifar10-fast/scripts/distributed_training.sh
+$ bash cifar10-fast/scripts/distributed_training.sh
 
 ```
 ```
 # Table 4 - Efficient Checkpointing
 
-$ bash supplementary_material/cifar10-fast/scripts/small_checkpoints.sh
+$ bash cifar10-fast/scripts/small_checkpoints.sh
 ```
 
 ## Notes
