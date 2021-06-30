@@ -202,7 +202,6 @@ class BertEmbeddings(nn.Module):
 
         embeddings = inputs_embeds + token_type_embeddings
         if self.position_embedding_type == "absolute":
-            position_ids = position_ids.repeat(input_shape[0], 1)
             position_embeddings = self.position_embeddings(position_ids)
             embeddings += position_embeddings
         embeddings = self.LayerNorm(embeddings)
