@@ -6,30 +6,22 @@ This repository contains the code to generate the results on GLUE tasks.
 
 ```
 pip install .
-pip install datasets torch tqdm
+pip install datasets torch==1.8.0 tqdm
 cd examples/text-classsification
 ```
 
 ### Table 1 - Parameter Efficient Transfer Learning on GLUE
-`bash run_table_1.sh`
+`bash scripts/run_table_1.sh`
 
 
 Note to replicate Diff Pruning experiments, following instructions in: https://github.com/dguo98/DiffPruning. 
 
 ### Figure 2 - Mask Sparsity Ablation and Sample Ablation
-`bash run_figure_2.sh`
+`bash scripts/run_figure_2.sh`
 
 ### Table 2 - Distributed Training
+`bash scripts/run_table_2.sh`
 
-For Table 2,
-```
-
-for task in ("cola" "mnli" "mrpc" "qnli" "qqp" "rte" "sst2" "stsb")
-do
-    bash distributed_training.sh $task 0
-done
-
-```
 
 ---
 

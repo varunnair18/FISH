@@ -2,16 +2,23 @@
 The repository is the codes to generate the CIFAR-10 experiments.
 
 
+## Requirements
+
+```
+pip install torch==1.8.0 torchvision==0.9.0
+```
+
+
 ## Small Checkpointing
 For Table 4,
 ```
-bash small_smallcheckpoints.sh
+bash scripts/small_smallcheckpoints.sh
 ```
 ## Distributed Training
 
 For Table 3,
 ```
-bash distributed_training.sh
+bash scripts/distributed_training.sh
 ```
 
 ---
