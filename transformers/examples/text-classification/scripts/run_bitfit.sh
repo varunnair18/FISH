@@ -1,7 +1,7 @@
 datasets=$1
 seed=$2
 
-source $(pwd)/scripts/lib.sh
+source $(pwd)/transformers/examples/text-classification/scripts/lib.sh
 
 # methods=("expect-square")
 method="bias"

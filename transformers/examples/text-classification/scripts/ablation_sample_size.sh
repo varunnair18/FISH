@@ -1,7 +1,7 @@
 datasets=$1
 seed=$2
 
-source $(pwd)/scripts/lib.sh
+source $(pwd)/transformers/examples/text-classification/scripts/lib.sh
 
 sample_sizes=(32 256 1024 16384)
 method="label-square"

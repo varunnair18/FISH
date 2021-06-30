@@ -4,7 +4,7 @@ SPLIT=$3
 HEPOCH=$4
 GPU=$5
 
-source $(pwd)/scripts/dt_lib.sh
+source $(pwd)/transformers/examples/text-classification/scripts/dt_lib.sh
 
 method="label-square"
 keep_ratio=0.005
