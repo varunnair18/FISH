@@ -21,13 +21,33 @@ $ bash transformers/examples/text-classification/scripts/run_sparse_updates.sh <
 An example command used to generate Table 1 in the paper is as follows, where all GLUE tasks are provided at a seed of 0 and a FISH mask sparsity of 0.5%.
 
 ```
-bash run_glue_sparse_update.sh "qqp mnli rte cola stsb sst2 mrpc qnli" 0 0.005 1024
+$ bash transformers/examples/text-classification/scripts/run_sparse_updates.sh "qqp mnli rte cola stsb sst2 mrpc qnli" 0 0.005 1024
 ```
 
 
 ## FISH Mask: CIFAR10 Experiments
 
-[TODO]
+To run the FISH mask on CIFAR10, code can be run with the following format:
+
+### Distributed Training
+```
+$ bash cifar10-fast/scripts/distributed_training_fish.sh <num_samples_for_fisher> <top_k_percentage> <training_epochs> <worker_updates> <learning_rate> <num_workers>
+```
+
+For example, in the paper, we compute the FISH mask of the 0.5% sparsity level by 256 samples and distribute the job to 2 workers for a total of 50 epochs training. Then the command would be
+
+```
+$ bash cifar10-fast/scripts/distributed_training_fish.sh 256 0.005 50 2 0.4 2
+```
+
+### Efficient Checkpointing
+
+```
+$ bash cifar10-fast/scripts/small_checkpoints_fish.sh <num_samples_for_fisher> <top_k_percentage> <training_epochs> <learning_rate> <fix_mask>
+```
+
+The hyperparameters are almost the same as distributed training. However, the `<fix_mask>` is to indicate to fix the mask or not, and a valid input is either 0 or 1 (1 means to fix the mask). 
+
 
 ## Replicating Results
 
