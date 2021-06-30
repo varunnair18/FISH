@@ -12,6 +12,9 @@ pip install datasets torch==1.8.0 tqdm torchvision==0.9.0
 ```
 
 ## FISH Mask: GLUE Experiments
+
+### Parameter-Efficient Transfer Learning
+
 To run the FISH Mask on a GLUE dataset, code can be run with the following format:
 
 ```
@@ -24,6 +27,18 @@ An example command used to generate Table 1 in the paper is as follows, where al
 $ bash transformers/examples/text-classification/scripts/run_sparse_updates.sh "qqp mnli rte cola stsb sst2 mrpc qnli" 0 0.005 1024
 ```
 
+### Distributed Training 
+
+To use the FISH mask on the GLUE tasks in a distributed setting, one can use the following command.
+```
+$ bash transformers/examples/text-classification/scripts/distributed_training.sh <dataset-name> <seed> <num_workers> <training_epochs> <gpu_id>
+```
+
+Note the `<dataset-name>` here can only contain one task, so an example command could be
+
+```
+$ bash transformers/examples/text-classification/scripts/distributed_training.sh "mnli" 0 2 3.5 0
+```
 
 ## FISH Mask: CIFAR10 Experiments
 
