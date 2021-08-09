@@ -3,6 +3,8 @@ echo "Performing checkpointing every $checkpoint_freq epochs"
 echo "Enter the datasets you would like to perform checkpointing experiments among, separated by spaces."
 read datasets
 
+DIR=$(pwd)/transformers/examples/text-classification
+
 datasets_available=("cola" "mnli" "mrpc" "qnli" "qqp" "rte" "sst2" "stsb")
 learning_rates=(5e-5 5e-5 5e-5 5e-5 5e-5 5e-5 5e-5 5e-5)
 batch_sizes=(16 16 16 16 16 8 16 16)
@@ -25,7 +27,7 @@ for dataset in ${datasets[@]}; do
     learning_rate=${learning_rates[$index]}
     batch_size=${batch_sizes[$index]}
 
-    python run_glue_sparse_update.py \
+    python ${DIR}/run_glue_sparse_update.py \
         --model_name_or_path bert-large-cased-whole-word-masking \
         --task_name $dataset \
         --do_train \
@@ -46,7 +48,7 @@ for dataset in ${datasets[@]}; do
 
     file_name="bert-large-"$dataset"-"$learning_rate"-"$batch_size"-"$checkpoint_freq"-"$seed"-checkpointing-results.txt"
     experiment_name="checkpointing_exp, ${dataset}, lr=${learning_rate}, batch=${batch_size}, seed=${seed}, checkpoint_freq=${checkpoint_freq}"
-    python run_glue_checkpointing.py \
+    python ${DIR}/run_glue_checkpointing.py \
         --model_name_or_path output/$dataset \
         --task_name $dataset \
         --do_train \

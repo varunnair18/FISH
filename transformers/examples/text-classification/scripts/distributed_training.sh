@@ -4,7 +4,9 @@ SPLIT=$3
 HEPOCH=$4
 GPU=$5
 
-source $(pwd)/transformers/examples/text-classification/scripts/dt_lib.sh
+DIR=$(pwd)/transformers/examples/text-classification
+
+source ${DIR}/scripts/dt_lib.sh
 
 method="label-square"
 keep_ratio=0.005
@@ -26,7 +28,7 @@ for MERGE_STEP in 10 30 100
 do
 
 # Train ASGD of our approach
-CUDA_VISIBLE_DEVICES=$GPU python run_glue_asgd.py \
+CUDA_VISIBLE_DEVICES=$GPU python ${DIR}/run_glue_asgd.py \
   --model_name_or_path bert-large-cased-whole-word-masking \
   --task_name $TASK_NAME \
   --do_train \
@@ -51,7 +53,7 @@ CUDA_VISIBLE_DEVICES=$GPU python run_glue_asgd.py \
 
 
 # Train second baseline: fully updated asgd model by summing the difference
-CUDA_VISIBLE_DEVICES=$GPU python run_glue_asgd.py \
+CUDA_VISIBLE_DEVICES=$GPU python ${DIR}/run_glue_asgd.py \
   --model_name_or_path bert-large-cased-whole-word-masking \
   --task_name $TASK_NAME \
   --do_train \
@@ -75,7 +77,7 @@ CUDA_VISIBLE_DEVICES=$GPU python run_glue_asgd.py \
   --merge_step $MERGE_STEP
 
 # run random mask experiments
-CUDA_VISIBLE_DEVICES=$GPU python run_glue_asgd.py \
+CUDA_VISIBLE_DEVICES=$GPU python ${DIR}/run_glue_asgd.py \
   --model_name_or_path bert-large-cased-whole-word-masking \
   --task_name $TASK_NAME \
   --do_train \
