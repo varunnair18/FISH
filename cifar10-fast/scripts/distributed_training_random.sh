@@ -13,4 +13,6 @@ python ${DIR}/asgd_dawn.py \
     --merge_steps $merge_steps \
     --lr $lr \
     --split $split \
-    --save_file logs/asgd_random_m${merge_steps}_k${keep_ratio}_e${epochs}_l${lr}_s${split}.tsv
+    --warmup_epoch 5 \
+    --same_mask \
+    --save_file logs/asgd_random_m${merge_steps}_k${keep_ratio}_e${epochs}_l${lr}_s${split}_w5.tsv

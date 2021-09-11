@@ -75,7 +75,7 @@ class DataLoader():
     def __iter__(self):
         if self.set_random_choices:
             self.dataset.set_random_choices() 
-        return ({'input': x.to(device).half(), 'target': y.to(device).long()} for (x,y) in self.dataloader)
+        return ({'input': x.to(device), 'target': y.to(device).long()} for (x,y) in self.dataloader)
     
     def __len__(self): 
         return len(self.dataloader)
@@ -386,7 +386,8 @@ def train_epoch(state, timer, train_batches, valid_batches, train_steps=default_
             if fisher_mask.mask is None:
                 fisher_mask.calculate_mask()
         else:
-            fisher_mask.calculate_mask()
+            if (state["epoch"] - 1) % state["args"].update_epoch_interval == 0:
+                fisher_mask.calculate_mask()
     train_summary, train_time = epoch_stats(on_epoch_end(reduce(train_batches, state, train_steps))), timer()
     valid_summary, valid_time = epoch_stats(reduce(valid_batches, state, valid_steps)), timer(include_in_total=False) #DAWNBench rules
     return {

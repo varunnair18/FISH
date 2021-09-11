@@ -17,11 +17,15 @@ if [ $fix_mask == 1 ]; then
         --save_file su_s${num_samples}_k${keep_ratio}_e${epochs}_l${lr}_fix.tsv
 else
     echo "The mask is allowed to be updated every epoch"
-    python ${DIR}/su_dawn.py \
-        --num_samples $num_samples \
-        --keep_ratio $keep_ratio \
-        --epochs $epochs \
-        --lr $lr \
-        --save_file su_s${num_samples}_k${keep_ratio}_e${epochs}_l${lr}.tsv
+
+    for update_epoch_interval in 1 2 4
+    do
+        python ${DIR}/su_dawn.py \
+            --num_samples $num_samples \
+            --keep_ratio $keep_ratio \
+            --epochs $epochs \
+            --lr $lr \
+            --save_file su_s${num_samples}_k${keep_ratio}_e${epochs}_u${update_epoch_interval}_l${lr}.tsv
+    done
 fi
 
