@@ -7,7 +7,7 @@ DIR=cifar10-fast
 # FISH
 for keep_ratio in 0.005 0.02 0.1
 do
-    for merge_steps in 10 30 100
+    for merge_steps in 100 500 2500
     do
         for lr in 0.4 0.2 0.08 0.04 0.02
         do
@@ -19,7 +19,7 @@ done
 # Random mask
 for keep_ratio in 0.005 0.02 0.1
 do
-    for merge_steps in 10 30 100
+    for merge_steps in 100 500 2500
     do
         for lr in 0.4 0.2 0.08 0.04 0.02
         do
@@ -29,7 +29,7 @@ do
 done
 
 # Densely-updated
-for merge_steps in 10 30 100
+for merge_steps in 100 500 2500
 do
     for lr in 0.4 0.2 0.08 0.04 0.02
     do

@@ -3,7 +3,7 @@ from su_torch_backend import *
 from dawn_utils import net, tsv
 import argparse
 import os.path
-from fisher import FisherMask, RandomFisherMask
+from fisher import FisherMask, RandomFisherMask, FullOneFisherMask, calculate_the_importance_label
 
 import random
 import numpy as np
@@ -21,6 +21,8 @@ parser.add_argument('--seed', type=int, default=0)
 parser.add_argument('--warmup_epoch', type=int, default=0)
 parser.add_argument('--fix_mask', action="store_true", default=False)
 parser.add_argument('--lr', type=float, default=0.4)
+parser.add_argument('--model_name', type=str, default="resnet34")
+parser.add_argument('--update_epoch_interval', type=int, default=1)
 
 def set_seed(args):
     random.seed(args.seed)
@@ -38,14 +40,80 @@ def main():
     dataset = cifar10(args.data_dir)
 
     epochs = args.epochs
+
     lr_schedule = PiecewiseLinear([0, 5, epochs], [0, args.lr, 0])
+    
     batch_size = 512
     train_transforms = [Crop(32, 32), FlipLR(), Cutout(8, 8)]
 
-    model = Network(net()).to(device).half()
+    import torchvision as tv
+    model_name = args.model_name
+
+    if model_name == "resnet9":
+        model = Network(net()).to(device)
+    else:
+        if model_name == "vit":
+            from vit_pytorch import ViT
+            model = ViT(
+                image_size = 32,
+                patch_size = 8,
+                num_classes = 10,
+                dim = 1024,
+                depth = 6,
+                heads = 4,
+                mlp_dim = 2048,
+                dropout = 0.1,
+                emb_dropout = 0.1
+            ).to(device)
+        elif model_name == "vit_deep":
+            from vit_pytorch import ViT
+            model = ViT(
+                image_size = 32,
+                patch_size = 8,
+                num_classes = 10,
+                dim = 1024,
+                depth = 6,
+                heads = 16,
+                mlp_dim = 2048,
+                dropout = 0.1,
+                emb_dropout = 0.1
+            ).to(device)
+        elif model_name.startswith("resnet"):
+            import resnet
+            model_class = f"resnet.{model_name}"
+            model = eval(model_class)(num_classes=10).to(device)
+        else:
+            model_class = f"tv.models.{model_name}"
+            model = eval(model_class)(num_classes=10).to(device)
+
+        def forward(self, inputs):
+            outputs = {}
+            outputs["logits"] = self._forward(inputs["input"])
+            outputs["target"] = inputs["target"]
+
+            return outputs
+
+        def half(self):
+            for n, p in self.named_parameters():
+                # print(n)
+                if "bn" not in n:
+                    p.data = p.data.half()
+
+            return self
+
+        from types import MethodType
+
+        setattr(model, '_forward', model.forward)
+        setattr(model, 'forward', MethodType(forward, model))
+        setattr(model, 'half', MethodType(half, model))
+        # model._forward = model.forward
+        # model.forward = forward
+        # model.half = half
+        # model = model.half()
+
     loss = x_ent_loss
     random_batch = lambda batch_size:  {
-        'input': torch.Tensor(np.random.rand(batch_size,3,32,32)).cuda().half(), 
+        'input': torch.Tensor(np.random.rand(batch_size,3,32,32)).cuda(), 
         'target': torch.LongTensor(np.random.randint(0,10,batch_size)).cuda()
     }
     print('Warming up cudnn on random inputs')
@@ -74,6 +142,8 @@ def main():
     sample_type, grad_type = None, None
     if args.mask_method == "random":
         MASK_CLASS = RandomFisherMask
+    elif args.mask_method == "all_ones":
+        MASK_CLASS = FullOneFisherMask
     else:
         sample_type, grad_type = args.mask_method.split("-")
         MASK_CLASS = FisherMask
@@ -84,9 +154,14 @@ def main():
     
     logs = Table()
     state = {MODEL: model, LOSS: loss, OPTS: opts, "fisher_mask": fisher_mask, "args": args}
+
     for epoch in range(epochs):
         state["epoch"] = epoch + 1
         logs.append(union({'epoch': epoch+1}, train_epoch(state, timer, train_batches, test_batches)))
+
+    # def tsv(logs):
+    #     data = [(output['epoch'], output['total time']/3600, output['valid']['acc']*100) for output in logs]
+    #     return '\n'.join(['epoch\thours\ttop1Accuracy']+[f'{epoch}\t{hours:.8f}\t{acc:.2f}' for (epoch, hours, acc) in data])
 
     with open(os.path.join(os.path.expanduser(args.log_dir), args.save_file), 'w') as f:
         f.write(tsv(logs.log))        

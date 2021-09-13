@@ -75,7 +75,7 @@ class DataLoader():
     def __iter__(self):
         if self.set_random_choices:
             self.dataset.set_random_choices() 
-        return ({'input': x.to(device).half(), 'target': y.to(device).long()} for (x,y) in self.dataloader)
+        return ({'input': x.to(device), 'target': y.to(device).long()} for (x,y) in self.dataloader)
     
     def __len__(self): 
         return len(self.dataloader)
@@ -309,8 +309,6 @@ def yield_reduce(batches, state, steps):
     #steps: are functions that take (batch, state)
     #and return a dictionary of updates to the state (or None)
 
-    training_step = 1
-    
     for batch in chain(batches, [None]): 
     #we send an extra batch=None at the end for steps that 
     #need to do some tidying-up (e.g. log_activations)
@@ -320,11 +318,13 @@ def yield_reduce(batches, state, steps):
                 for k,v in updates.items():
                     state[k] = v    
 
-        if training_step % state["args"].merge_steps == 0:
+        if state["training_step"] % state["args"].merge_steps == 0:
+            state["to_merge"] = True
             yield state
 
-        training_step += 1
-                      
+        state["training_step"] += 1
+
+    state["to_merge"] = False            
     yield state
 
   
