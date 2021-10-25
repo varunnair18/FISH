@@ -100,6 +100,5 @@ $ bash cifar10-fast/scripts/small_checkpoints.sh
 
 
 ## Acknowledgements
-
-[TODO]
+We thank Yoon Kim, Michael Matena, and Demi Guo for helpful discussions.
 
